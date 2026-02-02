@@ -1,16 +1,19 @@
-# This is a sample Python script.
+my_dict = {
+    'tuple': (1, 2, 3, 4, 5),
+    'list': [1, 2, 'text', 4, 5],
+    'dict': {1: 'один', 2: 'два', 3: 'три', 4: 'четыре', 5: 'пять'},
+    'set': {1, 2, 3, 4, 'test'}
+}
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+print(my_dict['tuple'][-1])
 
+my_dict['list'].append(42)
+my_dict['list'].pop(1)
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+my_dict['dict'][('i am a tuple',)] = 'дневник'
+my_dict['dict'].pop(1)
 
+my_dict['set'].add(42)
+my_dict['set'].pop()
 
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+print(my_dict)
