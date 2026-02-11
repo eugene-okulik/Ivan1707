@@ -1,5 +1,6 @@
-def number_plus_ten(text):
-    print(int(text.split()[-1]) + 10)
+def number_plus_ten(line):
+    print(int(line.split()[-1]) + 10)
+
 
 strings = [
     "результат операции: 42",
