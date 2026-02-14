@@ -4,6 +4,7 @@ def fibonacci():
         yield a
         a, b = b, a + b
 
+
 gen = fibonacci()
 targets = {5, 200, 1000, 100000}
 
