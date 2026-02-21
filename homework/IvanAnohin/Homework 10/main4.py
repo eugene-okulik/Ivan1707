@@ -6,7 +6,7 @@ PRICE_LIST = '''тетрадь 50р
 пенал 300р
 рюкзак 500р'''
 
-names = [line.split()[0] for line in PRICE_LIST.splitlines()]
+names = [line.split()[0] for line in PRICE_LIST .splitlines()]
 price = [line.split()[1][:-1] for line in PRICE_LIST.splitlines()]
 
 new_list = dict(zip(names, price))
