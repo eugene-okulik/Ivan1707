@@ -1,4 +1,5 @@
 def choice_of_operation(func):
+
     def wrapper(first, second):
         if first < 0 or second < 0:
             operation = '*'
