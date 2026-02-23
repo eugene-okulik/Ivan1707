@@ -21,7 +21,8 @@ book4.reserved = True
 print('Книги:')
 for book in [book1, book2, book3, book4, book5]:
     if book.reserved:
-        print(f'Название: {book.title}, Автор: {book.author}, страниц: {book.pages}, материал: {book.material}, зарезервирована')
+        print(f'Название: {book.title}, Автор: {book.author}, '
+              f'страниц: {book.pages}, материал: {book.material}, зарезервирована')
     else:
         print(f'Название: {book.title}, Автор: {book.author}, страниц: {book.pages}, материал: {book.material}')
 
@@ -33,16 +34,23 @@ class SchoolBook(Book):
         self.grade = grade
         self.has_tasks = has_tasks
 
-sb1 = SchoolBook('Алгебра', 'Иванов', 200, '000-0-00-123456-9', 'Математика', 9, True)
-sb2 = SchoolBook('История', 'Петров', 250, '000-0-00-123456-8', 'История', 5, True)
-sb3 = SchoolBook('География', 'Сидоров', 180, '000-0-00-123456-7', 'География', 7, False)
-sb4 = SchoolBook('Физика', 'Васильев', 300, '000-0-00-123456-6', 'Физика', 10, True)
+
+sb1 = SchoolBook('Алгебра', 'Иванов', 200, '000-0-00-123456-9',
+                 'Математика', 9, True)
+sb2 = SchoolBook('История', 'Петров', 250, '000-0-00-123456-8',
+                 'История', 5, True)
+sb3 = SchoolBook('География', 'Сидоров', 180, '000-0-00-123456-7',
+                 'География', 7, False)
+sb4 = SchoolBook('Физика', 'Васильев', 300, '000-0-00-123456-6',
+                 'Физика', 10, True)
 
 sb4.reserved = True
 
 print('Учебники:')
 for sb in [sb1, sb2, sb3, sb4]:
     if sb.reserved:
-        print(f'Название: {sb.title}, Автор: {sb.author}, страниц: {sb.pages}, предмет: {sb.subject}, класс: {sb.grade}, зарезервирована')
+        print(f'Название: {sb.title}, Автор: {sb.author}, страниц: {sb.pages}, '
+              f'предмет: {sb.subject}, класс: {sb.grade}, зарезервирована')
     else:
-        print(f'Название: {sb.title}, Автор: {sb.author}, страниц: {sb.pages}, предмет: {sb.subject}, класс: {sb.grade}')
+        print(f'Название: {sb.title}, Автор: {sb.author}, страниц: {sb.pages}, '
+              f'предмет: {sb.subject}, класс: {sb.grade}')
