@@ -1,6 +1,10 @@
 import datetime
+import os
 
-with open('../../../homework/eugene_okulik/hw_13/data.txt', encoding='utf-8') as f:
+script_dir = os.path.dirname(os.path.abspath(__file__))
+file_path = os.path.normpath(os.path.join(script_dir, '../../../homework/eugene_okulik/hw_13/data.txt'))
+
+with open(file_path, encoding='utf-8') as f:
     lines = [line.strip() for line in f if line.strip()]
 
 dates = []
