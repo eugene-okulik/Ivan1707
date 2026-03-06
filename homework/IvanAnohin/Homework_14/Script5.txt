@@ -1,0 +1,59 @@
+INSERT INTO students (name, second_name) VALUES ('Ivan', 'Ivanich');
+SELECT * FROM `students`ORDER BY id DESC;
+SET @student_id = 22390;
+INSERT INTO books (title, taken_by_student_id) VALUES 
+    ('Евгений Онегин', @student_id),
+    ('Война и мир', @student_id);
+SELECT * FROM books ORDER BY id DESC;
+SET @book_eugene_id = 5006;
+SET @book_war_id = 5007;
+INSERT INTO `groups` (title, start_date, end_date) 
+VALUES ('Группа №1', '2006-09-01', '2007-05-01');
+SELECT * FROM `groups` ORDER BY id DESC;
+SET @groups_id = 22082;
+UPDATE students SET group_id = @groups_id WHERE id = @student_id;
+INSERT INTO subjects (title) VALUES 
+    ('Математика'),
+    ('Физика');
+SELECT * FROM subjects ORDER BY id DESC;
+SET @subjmat_id = 14061;
+SET @subjfiz_id = 14062;
+
+INSERT INTO lessons (subject_id, title) VALUES
+    (@subjmat_id, 'Пределы функций'),
+    (@subjmat_id, 'Производные'),
+    (@subjfiz_id, 'Кинематика'),
+    (@subjfiz_id, 'Динамика');
+SELECT * FROM lessons ORDER BY id DESC;
+SET @dinl_id = 75250;
+SET @kinl_id = 75249;
+SET @proizl_id = 75248;
+SET @prdfl_id = 75247;
+INSERT INTO marks (student_id, lesson_id, value) VALUES
+    (@student_id, @prdfl_id, 4),
+    (@student_id, @proizl_id, 5),
+    (@student_id, @kinl_id, 3),
+    (@student_id, @dinl_id, 4);
+SELECT * FROM marks WHERE student_id = @student_id;
+SELECT * FROM books WHERE taken_by_student_id = @student_id;
+SELECT 
+    s.name AS student_name,
+    s.second_name AS student_second_name,
+    g.title AS group_name,
+    b.title AS book_title,
+    m.value AS mark,
+    sub.title AS subject_name,
+    l.title AS lesson_title
+FROM students s
+LEFT JOIN `groups` g ON s.group_id = g.id
+LEFT JOIN books b ON s.id = b.taken_by_student_id
+LEFT JOIN marks m ON s.id = m.student_id
+LEFT JOIN lessons l ON m.lesson_id = l.id
+LEFT JOIN subjects sub ON l.subject_id = sub.id
+WHERE s.id = @student_id
+ORDER BY subject_name, lesson_title;
+
+
+
+
+
