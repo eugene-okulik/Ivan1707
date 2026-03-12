@@ -16,9 +16,13 @@ cursor.execute(
 student_id = cursor.lastrowid
 print(f"Добавлен студент с ID: {student_id}")
 
-cursor.execute(
-    "INSERT INTO books (title, taken_by_student_id) VALUES (%s, %s), (%s, %s)",
-    ('Евгений Онегин', student_id, 'Война и мир', student_id)
+books_data = [
+    ('Евгений Онегин', student_id),
+    ('Война и мир', student_id)
+]
+cursor.executemany(
+    "INSERT INTO books (title, taken_by_student_id) VALUES (%s, %s)",
+    books_data
 )
 print("Книги добавлены и выданы студенту.")
 
@@ -35,13 +39,13 @@ cursor.execute(
 )
 print(f"Студент {student_id} назначен в группу {group_id}.")
 
-cursor.execute(
-    "INSERT INTO subjects (title) VALUES (%s), (%s)",
-    ('Математика', 'Физика')
-)
-cursor.execute("SELECT id, title FROM subjects WHERE title IN ('Математика', 'Физика')")
-subjects = cursor.fetchall()
-subject_ids = {row['title']: row['id'] for row in subjects}
+subject_ids = {}
+for subject_name in ['Математика', 'Физика']:
+    cursor.execute(
+        "INSERT INTO subjects (title) VALUES (%s)",
+        (subject_name,)
+    )
+    subject_ids[subject_name] = cursor.lastrowid
 print(
     f"Добавлены предметы: Математика (ID {subject_ids['Математика']}), "
     f"Физика (ID {subject_ids['Физика']})"
@@ -68,11 +72,10 @@ marks_data = [
     (student_id, lesson_ids['Кинематика'], 3),
     (student_id, lesson_ids['Динамика'], 4)
 ]
-for student_id, lesson_id, value in marks_data:
-    cursor.execute(
-        "INSERT INTO marks (student_id, lesson_id, value) VALUES (%s, %s, %s)",
-        (student_id, lesson_id, value)
-    )
+cursor.executemany(
+    "INSERT INTO marks (student_id, lesson_id, value) VALUES (%s, %s, %s)",
+    marks_data
+)
 print("Оценки добавлены.")
 
 db.commit()
