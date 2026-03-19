@@ -2,26 +2,23 @@ import os
 import argparse
 import re
 
+
 def parse_arguments():
     parser = argparse.ArgumentParser(
         description="Поиск текста в логах с выводом блока ошибки и контекста."
     )
+    parser.add_argument("path", help="Путь к папке с логами или к одному файлу лога")
     parser.add_argument(
-        "path",
-        help="Путь к папке с логами или к одному файлу лога"
-    )
-    parser.add_argument(
-        "--text",
-        required=True,
-        help="Текст, который нужно найти в логах"
+        "--text", required=True, help="Текст, который нужно найти в логах"
     )
     parser.add_argument(
         "--first",
         action="store_true",
         help="Выводить только первое найденное вхождение "
-             "(по умолчанию выводятся все)"
+        "(по умолчанию выводятся все)",
     )
     return parser.parse_args()
+
 
 def collect_files(path):
     if os.path.isfile(path):
@@ -30,15 +27,17 @@ def collect_files(path):
         log_files = []
         for root, dirs, files in os.walk(path):
             for file in files:
-                if file.endswith('.log'):
+                if file.endswith(".log"):
                     log_files.append(os.path.join(root, file))
         return log_files
     else:
         raise ValueError(f"Указанный путь не существует или недоступен: {path}")
 
+
 def is_timestamp_line(line):
-    pattern = r'^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}'
+    pattern = r"^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}"
     return re.match(pattern, line.strip()) is not None
+
 
 def split_into_blocks_with_numbers(lines):
     blocks = []
@@ -53,14 +52,13 @@ def split_into_blocks_with_numbers(lines):
             while i < len(lines) and not is_timestamp_line(lines[i]):
                 block_lines.append(lines[i])
                 i += 1
-            blocks.append({
-                'timestamp': timestamp,
-                'start': start,
-                'lines': block_lines
-            })
+            blocks.append(
+                {"timestamp": timestamp, "start": start, "lines": block_lines}
+            )
         else:
             i += 1
     return blocks
+
 
 def extract_context(line, search_text):
     words = line.split()
@@ -72,10 +70,11 @@ def extract_context(line, search_text):
             return " ".join(context_words)
     return None
 
+
 def process_file(file_path, search_text, first_only=False):
     results = []
     try:
-        with open(file_path, 'r', encoding='utf-8') as f:
+        with open(file_path, "r", encoding="utf-8") as f:
             lines = f.readlines()
     except (IOError, UnicodeDecodeError) as e:
         print(f"Ошибка чтения файла {file_path}: {e}")
@@ -84,9 +83,9 @@ def process_file(file_path, search_text, first_only=False):
     blocks = split_into_blocks_with_numbers(lines)
 
     for block in blocks:
-        timestamp = block['timestamp']
-        start_line = block['start']
-        block_lines = block['lines']
+        timestamp = block["timestamp"]
+        start_line = block["start"]
+        block_lines = block["lines"]
 
         for i, line in enumerate(block_lines):
             if search_text.lower() in line.lower():
@@ -99,6 +98,7 @@ def process_file(file_path, search_text, first_only=False):
         if first_only and results:
             break
     return results
+
 
 def main():
     args = parse_arguments()
@@ -130,6 +130,7 @@ def main():
         print(f"Время ошибки: {timestamp}")
         print(f"Строка: {line_num}")
         print(f"Контекст: {context}\n")
+
 
 if __name__ == "__main__":
     main()
