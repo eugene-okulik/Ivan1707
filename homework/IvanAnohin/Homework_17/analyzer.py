@@ -38,12 +38,17 @@ def extract_timestamp(line):
     if len(stripped) < 19:
         return None
     date_part = stripped[:19]
-    if (date_part[4] == '-' and date_part[7] == '-' and
-        date_part[10] == ' ' and date_part[13] == ':' and date_part[16] == ':'):
-        if (date_part[0:4].isdigit() and date_part[5:7].isdigit() and
-            date_part[8:10].isdigit() and date_part[11:13].isdigit() and
-            date_part[14:16].isdigit() and date_part[17:19].isdigit()):
-            pos = 19
+    if (date_part[4] == '-'
+            and date_part[7] == '-'
+            and date_part[10] == ' '
+            and date_part[13] == ':'
+            and date_part[16] == ':'):
+        if (date_part[0:4].isdigit()
+                and date_part[5:7].isdigit()
+                and date_part[8:10].isdigit()
+                and date_part[11:13].isdigit()
+                and date_part[14:16].isdigit()
+                and date_part[17:19].isdigit()):
             if len(stripped) > 19 and stripped[19] == '.':
                 end = 19
                 while end < len(stripped) and (stripped[end].isdigit() or stripped[end] == '.'):
