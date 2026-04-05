@@ -24,7 +24,8 @@ def new_post():
 
 
 def clear(post_id):
-    response = requests.delete(f'http://objapi.course.qa-practice.com/object/{post_id}')
+    url = f'http://objapi.course.qa-practice.com/object/{post_id}'
+    requests.delete(url)
 
 
 def put_a_post():
@@ -54,8 +55,9 @@ def patch_a_post():
 
 
 def delete_a_post():
-    post_id = new_post()
-    response = requests.delete(
-        f'http://objapi.course.qa-practice.com/object/{post_id}'
-    ).json()
-    print(response)
+    def delete_a_post():
+        post_id = new_post()
+        response = requests.delete(
+            f'http://objapi.course.qa-practice.com/object/{post_id}'
+        ).json()
+        print(response)
