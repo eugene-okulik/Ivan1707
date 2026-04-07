@@ -1,17 +1,6 @@
 import requests
 
 
-def post_a_post():
-    body = {"name": "First object", "data": {"color": "white", "size": "big"}}
-    headers = {'Content-Type': 'application/json'}
-    response = requests.post(
-        'http://objapi.course.qa-practice.com/object',
-        json=body,
-        headers=headers
-    ).json()
-    print(response)
-
-
 def new_post():
     body = {"name": "First object", "data": {"color": "white", "size": "big"}}
     headers = {'Content-Type': 'application/json'}
@@ -25,7 +14,8 @@ def new_post():
 
 def clear(post_id):
     url = f'http://objapi.course.qa-practice.com/object/{post_id}'
-    requests.delete(url)
+    response = requests.delete(url)
+    return response
 
 
 def put_a_post():
@@ -55,9 +45,6 @@ def patch_a_post():
 
 
 def delete_a_post():
-    def delete_a_post():
-        post_id = new_post()
-        response = requests.delete(
-            f'http://objapi.course.qa-practice.com/object/{post_id}'
-        ).json()
-        print(response)
+    post_id = new_post()
+    response = clear(post_id)
+    print(response.json())
